@@ -594,17 +594,11 @@ function Simpz:CreateToggle(parent, text, default, callback)
         Name = "Dot",
         AnchorPoint = Vector2.new(0, 0.5),
         BackgroundColor3 = Simpz.Settings.Theme.TextColor,
+        BackgroundTransparency = 1,
         Position = value and UDim2.new(1, -18, 0.5, 0) or UDim2.new(0, 2, 0.5, 0),
         Size = UDim2.new(0, 16, 0, 16),
         Parent = ToggleBackground
     })
-    
-    local DotCorner = Simpz:Create("UICorner", {
-        CornerRadius = UDim.new(1, 0),
-        Parent = Dot
-    })
-    
-    Simpz:AddGlow(Dot, Simpz.Settings.Theme.TextColor, 0.15)
     
     local function Toggle()
         value = not value
@@ -725,6 +719,7 @@ function Simpz:CreateSlider(parent, text, options, callback)
         Name = "Dot",
         AnchorPoint = Vector2.new(0.5, 0.5),
         BackgroundColor3 = Simpz.Settings.Theme.TextColor,
+        BackgroundTransparency = 1,
         Position = UDim2.new(1, 0, 0.5, 0),
         Size = UDim2.new(0, 12, 0, 12),
         ZIndex = 2,
@@ -736,7 +731,7 @@ function Simpz:CreateSlider(parent, text, options, callback)
         Parent = SliderDot
     })
     
-    Simpz:AddGlow(SliderDot, Simpz.Settings.Theme.TextColor, 0.3)
+    -- Removed glow to make slider dot invisible
     
     local function UpdateSlider(input)
         local percentX = math.clamp((input.Position.X - SliderContainer.AbsolutePosition.X) / SliderContainer.AbsoluteSize.X, 0, 1)
@@ -1147,6 +1142,7 @@ function Simpz:CreateSoundController(parent, text, options, callback)
         Name = "Dot",
         AnchorPoint = Vector2.new(0.5, 0.5),
         BackgroundColor3 = Simpz.Settings.Theme.TextColor,
+        BackgroundTransparency = 1,
         Position = UDim2.new(1, 0, 0.5, 0),
         Size = UDim2.new(0, 12, 0, 12),
         ZIndex = 2,
@@ -1158,7 +1154,7 @@ function Simpz:CreateSoundController(parent, text, options, callback)
         Parent = SliderDot
     })
     
-    Simpz:AddGlow(SliderDot, Simpz.Settings.Theme.TextColor, 0.3)
+    -- Removed glow to make slider dot invisible
     
     local isMuted = false
     
