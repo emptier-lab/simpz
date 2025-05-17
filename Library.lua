@@ -42,7 +42,7 @@ function simpz:Create(class, properties)
 end
 
 function simpz:AddShadow(element, strength)
-    strength = strength or 0.5
+    strength = strength or 1
     
     local shadow = simpz:Create("ImageLabel", {
         Name = "Shadow",
@@ -65,7 +65,7 @@ end
 
 function simpz:AddGlow(element, color, strength)
     color = color or simpz.Settings.Theme.Accent
-    strength = strength or 0.5
+    strength = strength or 1
     
     local glow = simpz:Create("ImageLabel", {
         Name = "Glow",
