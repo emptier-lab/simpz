@@ -1,4 +1,4 @@
-local Simpz = {}
+local simpz = {}
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
@@ -8,7 +8,7 @@ local TextService = game:GetService("TextService")
 local Player = Players.LocalPlayer
 local Mouse = Player:GetMouse()
 
-Simpz.Settings = {
+simpz.Settings = {
     Theme = {
         Primary = Color3.fromRGB(32, 33, 36),
         Secondary = Color3.fromRGB(42, 43, 49),
@@ -27,13 +27,13 @@ Simpz.Settings = {
     Elements = {}
 }
 
-function Simpz:Tween(instance, properties)
-    local tween = TweenService:Create(instance, Simpz.Settings.Animation.TweenInfo, properties)
+function simpz:Tween(instance, properties)
+    local tween = TweenService:Create(instance, simpz.Settings.Animation.TweenInfo, properties)
     tween:Play()
     return tween
 end
 
-function Simpz:Create(class, properties)
+function simpz:Create(class, properties)
     local instance = Instance.new(class)
     for prop, value in pairs(properties or {}) do
         instance[prop] = value
@@ -41,10 +41,10 @@ function Simpz:Create(class, properties)
     return instance
 end
 
-function Simpz:AddShadow(element, strength)
+function simpz:AddShadow(element, strength)
     strength = strength or 0.5
     
-    local shadow = Simpz:Create("ImageLabel", {
+    local shadow = simpz:Create("ImageLabel", {
         Name = "Shadow",
         AnchorPoint = Vector2.new(0.5, 0.5),
         BackgroundTransparency = 1,
@@ -63,11 +63,11 @@ function Simpz:AddShadow(element, strength)
     return shadow
 end
 
-function Simpz:AddGlow(element, color, strength)
-    color = color or Simpz.Settings.Theme.Accent
+function simpz:AddGlow(element, color, strength)
+    color = color or simpz.Settings.Theme.Accent
     strength = strength or 0.5
     
-    local glow = Simpz:Create("ImageLabel", {
+    local glow = simpz:Create("ImageLabel", {
         Name = "Glow",
         AnchorPoint = Vector2.new(0.5, 0.5),
         BackgroundTransparency = 1,
@@ -86,11 +86,11 @@ function Simpz:AddGlow(element, color, strength)
     return glow
 end
 
-function Simpz:AddStroke(element, color, thickness)
-    color = color or Simpz.Settings.Theme.Accent
+function simpz:AddStroke(element, color, thickness)
+    color = color or simpz.Settings.Theme.Accent
     thickness = thickness or 1
     
-    local stroke = Simpz:Create("UIStroke", {
+    local stroke = simpz:Create("UIStroke", {
         Name = "Stroke",
         Color = color,
         Thickness = thickness,
@@ -101,55 +101,55 @@ function Simpz:AddStroke(element, color, thickness)
     return stroke
 end
 
-function Simpz:CreateWindow(title, size)
-    title = title or "Simpz UI"
+function simpz:CreateWindow(title, size)
+    title = title or "simpz UI"
     size = size or UDim2.new(0, 550, 0, 400)
     
-    if Simpz.GUI then
-        Simpz.GUI:Destroy()
+    if simpz.GUI then
+        simpz.GUI:Destroy()
     end
     
-    local SimpzGUI = Simpz:Create("ScreenGui", {
-        Name = "SimpzGUI",
+    local simpzGUI = simpz:Create("ScreenGui", {
+        Name = "simpzGUI",
         ResetOnSpawn = false,
         ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
         Parent = Player.PlayerGui
     })
     
-    Simpz.GUI = SimpzGUI
+    simpz.GUI = simpzGUI
     
-    local MainFrame = Simpz:Create("Frame", {
+    local MainFrame = simpz:Create("Frame", {
         Name = "MainFrame",
         AnchorPoint = Vector2.new(0.5, 0.5),
-        BackgroundColor3 = Simpz.Settings.Theme.Primary,
+        BackgroundColor3 = simpz.Settings.Theme.Primary,
         Position = UDim2.new(0.5, 0, 0.5, 0),
         Size = size,
         ClipsDescendants = true,
-        Parent = SimpzGUI
+        Parent = simpzGUI
     })
     
-    local Corner = Simpz:Create("UICorner", {
+    local Corner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 8),
         Parent = MainFrame
     })
     
-    Simpz:AddShadow(MainFrame, 0.6)
+    simpz:AddShadow(MainFrame, 0.6)
     
-    local TopBar = Simpz:Create("Frame", {
+    local TopBar = simpz:Create("Frame", {
         Name = "TopBar",
-        BackgroundColor3 = Simpz.Settings.Theme.Secondary,
+        BackgroundColor3 = simpz.Settings.Theme.Secondary,
         Size = UDim2.new(1, 0, 0, 30),
         Parent = MainFrame
     })
     
-    local TopBarCorner = Simpz:Create("UICorner", {
+    local TopBarCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 8),
         Parent = TopBar
     })
     
-    local CornerFix = Simpz:Create("Frame", {
+    local CornerFix = simpz:Create("Frame", {
         Name = "CornerFix",
-        BackgroundColor3 = Simpz.Settings.Theme.Secondary,
+        BackgroundColor3 = simpz.Settings.Theme.Secondary,
         BorderSizePixel = 0,
         Position = UDim2.new(0, 0, 1, -8),
         Size = UDim2.new(1, 0, 0, 8),
@@ -157,56 +157,56 @@ function Simpz:CreateWindow(title, size)
         Parent = TopBar
     })
     
-    local TitleLabel = Simpz:Create("TextLabel", {
+    local TitleLabel = simpz:Create("TextLabel", {
         Name = "Title",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 10, 0, 0),
         Size = UDim2.new(0.5, 0, 1, 0),
         Font = Enum.Font.GothamBold,
         Text = title,
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 14,
         TextXAlignment = Enum.TextXAlignment.Left,
         Parent = TopBar
     })
     
-    local CloseButton = Simpz:Create("TextButton", {
+    local CloseButton = simpz:Create("TextButton", {
         Name = "CloseButton",
         AnchorPoint = Vector2.new(1, 0.5),
-        BackgroundColor3 = Simpz.Settings.Theme.Error,
+        BackgroundColor3 = simpz.Settings.Theme.Error,
         Position = UDim2.new(1, -8, 0.5, 0),
         Size = UDim2.new(0, 18, 0, 18),
         Font = Enum.Font.GothamBold,
         Text = "",
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 14,
         Parent = TopBar
     })
     
-    local CloseButtonCorner = Simpz:Create("UICorner", {
+    local CloseButtonCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 4),
         Parent = CloseButton
     })
     
-    local MinimizeButton = Simpz:Create("TextButton", {
+    local MinimizeButton = simpz:Create("TextButton", {
         Name = "MinimizeButton",
         AnchorPoint = Vector2.new(1, 0.5),
-        BackgroundColor3 = Simpz.Settings.Theme.Warning,
+        BackgroundColor3 = simpz.Settings.Theme.Warning,
         Position = UDim2.new(1, -32, 0.5, 0),
         Size = UDim2.new(0, 18, 0, 18),
         Font = Enum.Font.GothamBold,
         Text = "",
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 14,
         Parent = TopBar
     })
     
-    local MinimizeButtonCorner = Simpz:Create("UICorner", {
+    local MinimizeButtonCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 4),
         Parent = MinimizeButton
     })
     
-    local ContentContainer = Simpz:Create("Frame", {
+    local ContentContainer = simpz:Create("Frame", {
         Name = "ContentContainer",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 0, 0, 30),
@@ -214,21 +214,21 @@ function Simpz:CreateWindow(title, size)
         Parent = MainFrame
     })
     
-    local TabContainer = Simpz:Create("Frame", {
+    local TabContainer = simpz:Create("Frame", {
         Name = "TabContainer",
-        BackgroundColor3 = Simpz.Settings.Theme.Secondary,
+        BackgroundColor3 = simpz.Settings.Theme.Secondary,
         Size = UDim2.new(0, 120, 1, 0),
         Parent = ContentContainer
     })
     
-    local TabContainerCorner = Simpz:Create("UICorner", {
+    local TabContainerCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 8),
         Parent = TabContainer
     })
     
-    local CornerFix2 = Simpz:Create("Frame", {
+    local CornerFix2 = simpz:Create("Frame", {
         Name = "CornerFix",
-        BackgroundColor3 = Simpz.Settings.Theme.Secondary,
+        BackgroundColor3 = simpz.Settings.Theme.Secondary,
         BorderSizePixel = 0,
         Position = UDim2.new(1, -8, 0, 0),
         Size = UDim2.new(0, 8, 1, 0),
@@ -236,26 +236,26 @@ function Simpz:CreateWindow(title, size)
         Parent = TabContainer
     })
     
-    local TabList = Simpz:Create("ScrollingFrame", {
+    local TabList = simpz:Create("ScrollingFrame", {
         Name = "TabList",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 0, 0, 10),
         Size = UDim2.new(1, 0, 1, -10),
         CanvasSize = UDim2.new(0, 0, 0, 0),
         ScrollBarThickness = 2,
-        ScrollBarImageColor3 = Simpz.Settings.Theme.Accent,
+        ScrollBarImageColor3 = simpz.Settings.Theme.Accent,
         AutomaticCanvasSize = Enum.AutomaticSize.Y,
         Parent = TabContainer
     })
     
-    local TabListLayout = Simpz:Create("UIListLayout", {
+    local TabListLayout = simpz:Create("UIListLayout", {
         Padding = UDim.new(0, 5),
         HorizontalAlignment = Enum.HorizontalAlignment.Center,
         SortOrder = Enum.SortOrder.LayoutOrder,
         Parent = TabList
     })
     
-    local TabContent = Simpz:Create("Frame", {
+    local TabContent = simpz:Create("Frame", {
         Name = "TabContent",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 120, 0, 0),
@@ -264,7 +264,7 @@ function Simpz:CreateWindow(title, size)
     })
     
     local Window = {
-        Gui = SimpzGUI,
+        Gui = simpzGUI,
         MainFrame = MainFrame,
         Tabs = {}
     }
@@ -311,44 +311,44 @@ function Simpz:CreateWindow(title, size)
         WindowMinimized = not WindowMinimized
         if WindowMinimized then
             ContentContainer.Visible = false
-            Simpz:Tween(MainFrame, {Size = UDim2.new(0, size.X.Offset, 0, 30)})
+            simpz:Tween(MainFrame, {Size = UDim2.new(0, size.X.Offset, 0, 30)})
         else
-            Simpz:Tween(MainFrame, {Size = size})
+            simpz:Tween(MainFrame, {Size = size})
             task.wait(0.2)
             ContentContainer.Visible = true
         end
     end)
     
     CloseButton.MouseButton1Click:Connect(function()
-        Simpz:Tween(MainFrame, {Size = UDim2.new(0, size.X.Offset, 0, 0), Position = UDim2.new(0.5, 0, 0.5, size.Y.Offset/2)})
+        simpz:Tween(MainFrame, {Size = UDim2.new(0, size.X.Offset, 0, 0), Position = UDim2.new(0.5, 0, 0.5, size.Y.Offset/2)})
         task.wait(0.2)
-        SimpzGUI:Destroy()
+        simpzGUI:Destroy()
     end)
     
     function Window:CreateTab(name, icon)
         name = name or "Tab"
         icon = icon or ""
         
-        local TabButton = Simpz:Create("TextButton", {
+        local TabButton = simpz:Create("TextButton", {
             Name = name .. "Tab",
-            BackgroundColor3 = Simpz.Settings.Theme.Primary,
+            BackgroundColor3 = simpz.Settings.Theme.Primary,
             Size = UDim2.new(0.9, 0, 0, 32),
             Font = Enum.Font.Gotham,
             Text = name,
-            TextColor3 = Simpz.Settings.Theme.TextColor,
+            TextColor3 = simpz.Settings.Theme.TextColor,
             TextSize = 12,
             Parent = TabList
         })
         
-        local TabButtonCorner = Simpz:Create("UICorner", {
+        local TabButtonCorner = simpz:Create("UICorner", {
             CornerRadius = UDim.new(0, 6),
             Parent = TabButton
         })
         
-        Simpz:AddStroke(TabButton, Simpz.Settings.Theme.Accent, 0)
+        simpz:AddStroke(TabButton, simpz.Settings.Theme.Accent, 0)
         
         if icon ~= "" then
-            local IconImage = Simpz:Create("ImageLabel", {
+            local IconImage = simpz:Create("ImageLabel", {
                 Name = "Icon",
                 BackgroundTransparency = 1,
                 Position = UDim2.new(0, 5, 0.5, 0),
@@ -362,7 +362,7 @@ function Simpz:CreateWindow(title, size)
             TabButton.TextXAlignment = Enum.TextXAlignment.Center
         end
         
-        local TabFrame = Simpz:Create("ScrollingFrame", {
+        local TabFrame = simpz:Create("ScrollingFrame", {
             Name = name .. "Frame",
             BackgroundTransparency = 1,
             ClipsDescendants = true,
@@ -371,11 +371,11 @@ function Simpz:CreateWindow(title, size)
             AutomaticCanvasSize = Enum.AutomaticSize.Y,
             CanvasSize = UDim2.new(0, 0, 0, 0),
             ScrollBarThickness = 3,
-            ScrollBarImageColor3 = Simpz.Settings.Theme.Accent,
+            ScrollBarImageColor3 = simpz.Settings.Theme.Accent,
             Parent = TabContent
         })
         
-        local Padding = Simpz:Create("UIPadding", {
+        local Padding = simpz:Create("UIPadding", {
             PaddingLeft = UDim.new(0, 10),
             PaddingRight = UDim.new(0, 10),
             PaddingTop = UDim.new(0, 10),
@@ -383,7 +383,7 @@ function Simpz:CreateWindow(title, size)
             Parent = TabFrame
         })
         
-        local ElementList = Simpz:Create("UIListLayout", {
+        local ElementList = simpz:Create("UIListLayout", {
             Padding = UDim.new(0, 8),
             SortOrder = Enum.SortOrder.LayoutOrder,
             Parent = TabFrame
@@ -400,19 +400,19 @@ function Simpz:CreateWindow(title, size)
         TabButton.MouseButton1Click:Connect(function()
             for _, t in pairs(Window.Tabs) do
                 t.Frame.Visible = false
-                Simpz:Tween(t.Button, {BackgroundColor3 = Simpz.Settings.Theme.Primary})
-                Simpz:Tween(t.Button:FindFirstChildOfClass("UIStroke"), {Thickness = 0})
+                simpz:Tween(t.Button, {BackgroundColor3 = simpz.Settings.Theme.Primary})
+                simpz:Tween(t.Button:FindFirstChildOfClass("UIStroke"), {Thickness = 0})
             end
             
             TabFrame.Visible = true
-            Simpz:Tween(TabButton, {BackgroundColor3 = Simpz.Settings.Theme.Secondary})
-            Simpz:Tween(TabButton:FindFirstChildOfClass("UIStroke"), {Thickness = 1})
+            simpz:Tween(TabButton, {BackgroundColor3 = simpz.Settings.Theme.Secondary})
+            simpz:Tween(TabButton:FindFirstChildOfClass("UIStroke"), {Thickness = 1})
         end)
         
         if #Window.Tabs == 1 then
             TabFrame.Visible = true
-            Simpz:Tween(TabButton, {BackgroundColor3 = Simpz.Settings.Theme.Secondary})
-            Simpz:Tween(TabButton:FindFirstChildOfClass("UIStroke"), {Thickness = 1})
+            simpz:Tween(TabButton, {BackgroundColor3 = simpz.Settings.Theme.Secondary})
+            simpz:Tween(TabButton:FindFirstChildOfClass("UIStroke"), {Thickness = 1})
         end
         
         return Tab
@@ -421,110 +421,176 @@ function Simpz:CreateWindow(title, size)
     return Window
 end
 
-function Simpz:CreateSection(tab, title)
-    local SectionFrame = Simpz:Create("Frame", {
+function simpz:CreateSection(tab, title)
+    local SectionFrame = simpz:Create("Frame", {
         Name = title .. "Section",
-        BackgroundColor3 = Simpz.Settings.Theme.Secondary,
+        BackgroundColor3 = simpz.Settings.Theme.Secondary,
         Size = UDim2.new(1, 0, 0, 36),
         Parent = tab.Frame
     })
     
-    local SectionCorner = Simpz:Create("UICorner", {
+    local SectionCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 6),
         Parent = SectionFrame
     })
     
-    Simpz:AddShadow(SectionFrame, 0.3)
+    simpz:AddShadow(SectionFrame, 0.3)
     
-    local SectionTitle = Simpz:Create("TextLabel", {
+    local SectionTitle = simpz:Create("TextLabel", {
         Name = "Title",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 10, 0, 0),
-        Size = UDim2.new(1, -10, 1, 0),
+        Size = UDim2.new(1, -40, 1, 0),
         Font = Enum.Font.GothamBold,
         Text = title,
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 14,
         TextXAlignment = Enum.TextXAlignment.Left,
         Parent = SectionFrame
     })
     
+    local ToggleArrow = simpz:Create("ImageLabel", {
+        Name = "ToggleArrow",
+        AnchorPoint = Vector2.new(1, 0.5),
+        BackgroundTransparency = 1,
+        Position = UDim2.new(1, -10, 0.5, 0),
+        Size = UDim2.new(0, 20, 0, 20),
+        Image = "rbxassetid://7072706318", -- Down arrow
+        ImageColor3 = simpz.Settings.Theme.TextColor,
+        Rotation = 0,
+        Parent = SectionFrame
+    })
+    
+    local ContentFrame = simpz:Create("Frame", {
+        Name = "Content",
+        BackgroundTransparency = 1,
+        Position = UDim2.new(0, 0, 0, 36),
+        Size = UDim2.new(1, 0, 0, 0),
+        ClipsDescendants = true,
+        Parent = SectionFrame
+    })
+    
+    local ContentLayout = simpz:Create("UIListLayout", {
+        Padding = UDim.new(0, 8),
+        SortOrder = Enum.SortOrder.LayoutOrder,
+        Parent = ContentFrame
+    })
+    
+    ContentLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        if ContentFrame.Visible then
+            ContentFrame.Size = UDim2.new(1, 0, 0, ContentLayout.AbsoluteContentSize.Y)
+            SectionFrame.Size = UDim2.new(1, 0, 0, 36 + ContentLayout.AbsoluteContentSize.Y)
+        end
+    end)
+    
+    local isCollapsed = false
+    
+    local function ToggleSection()
+        isCollapsed = not isCollapsed
+        
+        if isCollapsed then
+            simpz:Tween(SectionFrame, {Size = UDim2.new(1, 0, 0, 36)})
+            simpz:Tween(ContentFrame, {Size = UDim2.new(1, 0, 0, 0)})
+            simpz:Tween(ToggleArrow, {Rotation = -90})
+        else
+            simpz:Tween(ContentFrame, {Size = UDim2.new(1, 0, 0, ContentLayout.AbsoluteContentSize.Y)})
+            simpz:Tween(SectionFrame, {Size = UDim2.new(1, 0, 0, 36 + ContentLayout.AbsoluteContentSize.Y)})
+            simpz:Tween(ToggleArrow, {Rotation = 0})
+        end
+    end
+    
+    local ClickDetector = simpz:Create("TextButton", {
+        Name = "ClickDetector",
+        BackgroundTransparency = 1,
+        Position = UDim2.new(0, 0, 0, 0),
+        Size = UDim2.new(1, 0, 0, 36),
+        Text = "",
+        Parent = SectionFrame
+    })
+    
+    ClickDetector.MouseButton1Click:Connect(ToggleSection)
+    
     local Section = {
-        Frame = SectionFrame,
+        Frame = ContentFrame,
         Container = tab.Frame,
-        Elements = {}
+        Elements = {},
+        SetCollapsed = function(collapsed)
+            if collapsed ~= isCollapsed then
+                ToggleSection()
+            end
+        end
     }
     
     return Section
 end
 
-function Simpz:CreateButton(parent, text, callback)
+function simpz:CreateButton(parent, text, callback)
     callback = callback or function() end
     
-    local ButtonFrame = Simpz:Create("Frame", {
+    local ButtonFrame = simpz:Create("Frame", {
         Name = text .. "Button",
-        BackgroundColor3 = Simpz.Settings.Theme.Secondary,
+        BackgroundColor3 = simpz.Settings.Theme.Secondary,
         Size = UDim2.new(1, 0, 0, 36),
-        Parent = parent.Frame or parent.Container
+        Parent = parent.Frame
     })
     
-    local ButtonCorner = Simpz:Create("UICorner", {
+    local ButtonCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 6),
         Parent = ButtonFrame
     })
     
-    Simpz:AddShadow(ButtonFrame, 0.2)
+    simpz:AddShadow(ButtonFrame, 0.2)
     
-    local ButtonLabel = Simpz:Create("TextLabel", {
+    local ButtonLabel = simpz:Create("TextLabel", {
         Name = "Label",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 10, 0, 0),
         Size = UDim2.new(0.5, 0, 1, 0),
         Font = Enum.Font.Gotham,
         Text = text,
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 13,
         TextXAlignment = Enum.TextXAlignment.Left,
         Parent = ButtonFrame
     })
     
-    local Button = Simpz:Create("TextButton", {
+    local Button = simpz:Create("TextButton", {
         Name = "Button",
         AnchorPoint = Vector2.new(1, 0.5),
-        BackgroundColor3 = Simpz.Settings.Theme.Accent,
+        BackgroundColor3 = simpz.Settings.Theme.Accent,
         Position = UDim2.new(1, -10, 0.5, 0),
         Size = UDim2.new(0, 80, 0, 24),
         AutoButtonColor = false,
         Font = Enum.Font.Gotham,
         Text = "Execute",
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 12,
         Parent = ButtonFrame
     })
     
-    local ButtonInnerCorner = Simpz:Create("UICorner", {
+    local ButtonInnerCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 4),
         Parent = Button
     })
     
-    Simpz:AddGlow(Button, Simpz.Settings.Theme.Accent, 0.2)
+    simpz:AddGlow(Button, simpz.Settings.Theme.Accent, 0.2)
     
-    local ButtonStroke = Simpz:AddStroke(Button, Simpz.Settings.Theme.Accent, 1)
+    local ButtonStroke = simpz:AddStroke(Button, simpz.Settings.Theme.Accent, 1)
     
     Button.MouseEnter:Connect(function()
-        Simpz:Tween(Button, {BackgroundColor3 = Simpz.Settings.Theme.Accent:Lerp(Color3.fromRGB(255, 255, 255), 0.2)})
+        simpz:Tween(Button, {BackgroundColor3 = simpz.Settings.Theme.Accent:Lerp(Color3.fromRGB(255, 255, 255), 0.2)})
     end)
     
     Button.MouseLeave:Connect(function()
-        Simpz:Tween(Button, {BackgroundColor3 = Simpz.Settings.Theme.Accent})
+        simpz:Tween(Button, {BackgroundColor3 = simpz.Settings.Theme.Accent})
     end)
     
     Button.MouseButton1Down:Connect(function()
-        Simpz:Tween(Button, {BackgroundColor3 = Simpz.Settings.Theme.Accent:Lerp(Color3.fromRGB(0, 0, 0), 0.2)})
+        simpz:Tween(Button, {BackgroundColor3 = simpz.Settings.Theme.Accent:Lerp(Color3.fromRGB(0, 0, 0), 0.2)})
     end)
     
     Button.MouseButton1Up:Connect(function()
-        Simpz:Tween(Button, {BackgroundColor3 = Simpz.Settings.Theme.Accent:Lerp(Color3.fromRGB(255, 255, 255), 0.2)})
+        simpz:Tween(Button, {BackgroundColor3 = simpz.Settings.Theme.Accent:Lerp(Color3.fromRGB(255, 255, 255), 0.2)})
         callback()
     end)
     
@@ -541,59 +607,59 @@ function Simpz:CreateButton(parent, text, callback)
     return ButtonElement
 end
 
-function Simpz:CreateToggle(parent, text, default, callback)
+function simpz:CreateToggle(parent, text, default, callback)
     default = default or false
     callback = callback or function() end
     
     local value = default
     
-    local ToggleFrame = Simpz:Create("Frame", {
+    local ToggleFrame = simpz:Create("Frame", {
         Name = text .. "Toggle",
-        BackgroundColor3 = Simpz.Settings.Theme.Secondary,
+        BackgroundColor3 = simpz.Settings.Theme.Secondary,
         Size = UDim2.new(1, 0, 0, 36),
-        Parent = parent.Frame or parent.Container
+        Parent = parent.Frame
     })
     
-    local ToggleCorner = Simpz:Create("UICorner", {
+    local ToggleCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 6),
         Parent = ToggleFrame
     })
     
-    Simpz:AddShadow(ToggleFrame, 0.2)
+    simpz:AddShadow(ToggleFrame, 0.2)
     
-    local ToggleLabel = Simpz:Create("TextLabel", {
+    local ToggleLabel = simpz:Create("TextLabel", {
         Name = "Label",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 10, 0, 0),
         Size = UDim2.new(0.5, 0, 1, 0),
         Font = Enum.Font.Gotham,
         Text = text,
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 13,
         TextXAlignment = Enum.TextXAlignment.Left,
         Parent = ToggleFrame
     })
     
-    local ToggleBackground = Simpz:Create("Frame", {
+    local ToggleBackground = simpz:Create("Frame", {
         Name = "Background",
         AnchorPoint = Vector2.new(1, 0.5),
-        BackgroundColor3 = value and Simpz.Settings.Theme.Accent or Simpz.Settings.Theme.Primary,
+        BackgroundColor3 = value and simpz.Settings.Theme.Accent or simpz.Settings.Theme.Primary,
         Position = UDim2.new(1, -10, 0.5, 0),
         Size = UDim2.new(0, 40, 0, 20),
         Parent = ToggleFrame
     })
     
-    local ToggleBackgroundCorner = Simpz:Create("UICorner", {
+    local ToggleBackgroundCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(1, 0),
         Parent = ToggleBackground
     })
     
-    Simpz:AddStroke(ToggleBackground, Simpz.Settings.Theme.Accent, 1)
+    simpz:AddStroke(ToggleBackground, simpz.Settings.Theme.Accent, 1)
     
-    local Dot = Simpz:Create("Frame", {
+    local Dot = simpz:Create("Frame", {
         Name = "Dot",
         AnchorPoint = Vector2.new(0, 0.5),
-        BackgroundColor3 = Simpz.Settings.Theme.TextColor,
+        BackgroundColor3 = simpz.Settings.Theme.TextColor,
         BackgroundTransparency = 1,
         Position = value and UDim2.new(1, -18, 0.5, 0) or UDim2.new(0, 2, 0.5, 0),
         Size = UDim2.new(0, 16, 0, 16),
@@ -602,8 +668,8 @@ function Simpz:CreateToggle(parent, text, default, callback)
     
     local function Toggle()
         value = not value
-        Simpz:Tween(Dot, {Position = value and UDim2.new(1, -18, 0.5, 0) or UDim2.new(0, 2, 0.5, 0)})
-        Simpz:Tween(ToggleBackground, {BackgroundColor3 = value and Simpz.Settings.Theme.Accent or Simpz.Settings.Theme.Primary})
+        simpz:Tween(Dot, {Position = value and UDim2.new(1, -18, 0.5, 0) or UDim2.new(0, 2, 0.5, 0)})
+        simpz:Tween(ToggleBackground, {BackgroundColor3 = value and simpz.Settings.Theme.Accent or simpz.Settings.Theme.Primary})
         callback(value)
     end
     
@@ -634,7 +700,7 @@ function Simpz:CreateToggle(parent, text, default, callback)
     return ToggleElement
 end
 
-function Simpz:CreateSlider(parent, text, options, callback)
+function simpz:CreateSlider(parent, text, options, callback)
     options = options or {}
     options.min = options.min or 0
     options.max = options.max or 100
@@ -646,34 +712,34 @@ function Simpz:CreateSlider(parent, text, options, callback)
     
     local value = options.default
     
-    local SliderFrame = Simpz:Create("Frame", {
+    local SliderFrame = simpz:Create("Frame", {
         Name = text .. "Slider",
-        BackgroundColor3 = Simpz.Settings.Theme.Secondary,
+        BackgroundColor3 = simpz.Settings.Theme.Secondary,
         Size = UDim2.new(1, 0, 0, 50),
-        Parent = parent.Frame or parent.Container
+        Parent = parent.Frame
     })
     
-    local SliderCorner = Simpz:Create("UICorner", {
+    local SliderCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 6),
         Parent = SliderFrame
     })
     
-    Simpz:AddShadow(SliderFrame, 0.2)
+    simpz:AddShadow(SliderFrame, 0.2)
     
-    local SliderLabel = Simpz:Create("TextLabel", {
+    local SliderLabel = simpz:Create("TextLabel", {
         Name = "Label",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 10, 0, 0),
         Size = UDim2.new(0.5, 0, 0, 36),
         Font = Enum.Font.Gotham,
         Text = text,
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 13,
         TextXAlignment = Enum.TextXAlignment.Left,
         Parent = SliderFrame
     })
     
-    local ValueLabel = Simpz:Create("TextLabel", {
+    local ValueLabel = simpz:Create("TextLabel", {
         Name = "Value",
         BackgroundTransparency = 1,
         AnchorPoint = Vector2.new(1, 0),
@@ -681,44 +747,44 @@ function Simpz:CreateSlider(parent, text, options, callback)
         Size = UDim2.new(0, 50, 0, 36),
         Font = Enum.Font.Gotham,
         Text = tostring(value) .. options.suffix,
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 13,
         TextXAlignment = Enum.TextXAlignment.Right,
         Parent = SliderFrame
     })
     
-    local SliderContainer = Simpz:Create("Frame", {
+    local SliderContainer = simpz:Create("Frame", {
         Name = "Container",
         AnchorPoint = Vector2.new(0.5, 1),
-        BackgroundColor3 = Simpz.Settings.Theme.Primary,
+        BackgroundColor3 = simpz.Settings.Theme.Primary,
         Position = UDim2.new(0.5, 0, 1, -8),
         Size = UDim2.new(1, -20, 0, 6),
         Parent = SliderFrame
     })
     
-    local SliderContainerCorner = Simpz:Create("UICorner", {
+    local SliderContainerCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(1, 0),
         Parent = SliderContainer
     })
     
-    local SliderFill = Simpz:Create("Frame", {
+    local SliderFill = simpz:Create("Frame", {
         Name = "Fill",
-        BackgroundColor3 = Simpz.Settings.Theme.Accent,
+        BackgroundColor3 = simpz.Settings.Theme.Accent,
         Size = UDim2.new((value - options.min) / (options.max - options.min), 0, 1, 0),
         Parent = SliderContainer
     })
     
-    local SliderFillCorner = Simpz:Create("UICorner", {
+    local SliderFillCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(1, 0),
         Parent = SliderFill
     })
     
-    Simpz:AddGlow(SliderFill, Simpz.Settings.Theme.Accent, 0.3)
+    simpz:AddGlow(SliderFill, simpz.Settings.Theme.Accent, 0.3)
     
-    local SliderDot = Simpz:Create("Frame", {
+    local SliderDot = simpz:Create("Frame", {
         Name = "Dot",
         AnchorPoint = Vector2.new(0.5, 0.5),
-        BackgroundColor3 = Simpz.Settings.Theme.TextColor,
+        BackgroundColor3 = simpz.Settings.Theme.TextColor,
         BackgroundTransparency = 1,
         Position = UDim2.new(1, 0, 0.5, 0),
         Size = UDim2.new(0, 12, 0, 12),
@@ -726,7 +792,7 @@ function Simpz:CreateSlider(parent, text, options, callback)
         Parent = SliderFill
     })
     
-    local SliderDotCorner = Simpz:Create("UICorner", {
+    local SliderDotCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(1, 0),
         Parent = SliderDot
     })
@@ -746,7 +812,7 @@ function Simpz:CreateSlider(parent, text, options, callback)
         value = math.clamp(value, options.min, options.max)
         
         ValueLabel.Text = string.format(options.precise and "%.2f%s" or "%d%s", value, options.suffix)
-        Simpz:Tween(SliderFill, {Size = UDim2.new((value - options.min) / (options.max - options.min), 0, 1, 0)})
+        simpz:Tween(SliderFill, {Size = UDim2.new((value - options.min) / (options.max - options.min), 0, 1, 0)})
         
         callback(value)
     end
@@ -771,7 +837,7 @@ function Simpz:CreateSlider(parent, text, options, callback)
         Set = function(newValue)
             value = math.clamp(newValue, options.min, options.max)
             ValueLabel.Text = string.format(options.precise and "%.2f%s" or "%d%s", value, options.suffix)
-            Simpz:Tween(SliderFill, {Size = UDim2.new((value - options.min) / (options.max - options.min), 0, 1, 0)})
+            simpz:Tween(SliderFill, {Size = UDim2.new((value - options.min) / (options.max - options.min), 0, 1, 0)})
             callback(value)
         end
     }
@@ -783,41 +849,41 @@ function Simpz:CreateSlider(parent, text, options, callback)
     return SliderElement
 end
 
-function Simpz:CreateColorPicker(parent, text, default, callback)
+function simpz:CreateColorPicker(parent, text, default, callback)
     default = default or Color3.fromRGB(255, 0, 0)
     callback = callback or function() end
     
     local color = default
     
-    local ColorFrame = Simpz:Create("Frame", {
+    local ColorFrame = simpz:Create("Frame", {
         Name = text .. "ColorPicker",
-        BackgroundColor3 = Simpz.Settings.Theme.Secondary,
+        BackgroundColor3 = simpz.Settings.Theme.Secondary,
         Size = UDim2.new(1, 0, 0, 36),
         ClipsDescendants = true,
-        Parent = parent.Frame or parent.Container
+        Parent = parent.Frame
     })
     
-    local ColorCorner = Simpz:Create("UICorner", {
+    local ColorCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 6),
         Parent = ColorFrame
     })
     
-    Simpz:AddShadow(ColorFrame, 0.2)
+    simpz:AddShadow(ColorFrame, 0.2)
     
-    local ColorLabel = Simpz:Create("TextLabel", {
+    local ColorLabel = simpz:Create("TextLabel", {
         Name = "Label",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 10, 0, 0),
         Size = UDim2.new(0.5, 0, 1, 0),
         Font = Enum.Font.Gotham,
         Text = text,
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 13,
         TextXAlignment = Enum.TextXAlignment.Left,
         Parent = ColorFrame
     })
     
-    local ColorDisplay = Simpz:Create("Frame", {
+    local ColorDisplay = simpz:Create("Frame", {
         Name = "ColorDisplay",
         AnchorPoint = Vector2.new(1, 0.5),
         BackgroundColor3 = color,
@@ -826,14 +892,14 @@ function Simpz:CreateColorPicker(parent, text, default, callback)
         Parent = ColorFrame
     })
     
-    local ColorDisplayCorner = Simpz:Create("UICorner", {
+    local ColorDisplayCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 4),
         Parent = ColorDisplay
     })
     
-    Simpz:AddStroke(ColorDisplay, Color3.fromRGB(255, 255, 255), 1)
+    simpz:AddStroke(ColorDisplay, Color3.fromRGB(255, 255, 255), 1)
     
-    local HexLabel = Simpz:Create("TextLabel", {
+    local HexLabel = simpz:Create("TextLabel", {
         Name = "HexLabel",
         BackgroundTransparency = 1,
         AnchorPoint = Vector2.new(1, 0.5),
@@ -844,13 +910,13 @@ function Simpz:CreateColorPicker(parent, text, default, callback)
             math.floor(color.R * 255), 
             math.floor(color.G * 255), 
             math.floor(color.B * 255)),
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 12,
         TextXAlignment = Enum.TextXAlignment.Right,
         Parent = ColorFrame
     })
     
-    local ColorPickerButton = Simpz:Create("TextButton", {
+    local ColorPickerButton = simpz:Create("TextButton", {
         Name = "PickerButton",
         BackgroundTransparency = 1,
         Size = UDim2.new(1, 0, 1, 0),
@@ -858,9 +924,9 @@ function Simpz:CreateColorPicker(parent, text, default, callback)
         Parent = ColorFrame
     })
     
-    local ColorPickerGui = Simpz:Create("Frame", {
+    local ColorPickerGui = simpz:Create("Frame", {
         Name = "ColorPickerGui",
-        BackgroundColor3 = Simpz.Settings.Theme.Primary,
+        BackgroundColor3 = simpz.Settings.Theme.Primary,
         Position = UDim2.new(0, 0, 1, 5),
         Size = UDim2.new(1, 0, 0, 200),
         Visible = false,
@@ -868,14 +934,14 @@ function Simpz:CreateColorPicker(parent, text, default, callback)
         Parent = ColorFrame
     })
     
-    local ColorPickerCorner = Simpz:Create("UICorner", {
+    local ColorPickerCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 6),
         Parent = ColorPickerGui
     })
     
-    Simpz:AddShadow(ColorPickerGui, 0.4)
+    simpz:AddShadow(ColorPickerGui, 0.4)
     
-    local Saturation = Simpz:Create("ImageLabel", {
+    local Saturation = simpz:Create("ImageLabel", {
         Name = "Saturation",
         BackgroundColor3 = Color3.fromRGB(255, 0, 0),
         Position = UDim2.new(0, 10, 0, 10),
@@ -885,12 +951,12 @@ function Simpz:CreateColorPicker(parent, text, default, callback)
         Parent = ColorPickerGui
     })
     
-    local SaturationCorner = Simpz:Create("UICorner", {
+    local SaturationCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 4),
         Parent = Saturation
     })
     
-    local Hue = Simpz:Create("ImageLabel", {
+    local Hue = simpz:Create("ImageLabel", {
         Name = "Hue",
         BackgroundColor3 = Color3.fromRGB(255, 255, 255),
         Position = UDim2.new(0, 10, 0, 170),
@@ -900,12 +966,12 @@ function Simpz:CreateColorPicker(parent, text, default, callback)
         Parent = ColorPickerGui
     })
     
-    local HueCorner = Simpz:Create("UICorner", {
+    local HueCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 4),
         Parent = Hue
     })
     
-    local HueSelector = Simpz:Create("Frame", {
+    local HueSelector = simpz:Create("Frame", {
         Name = "HueSelector",
         AnchorPoint = Vector2.new(0.5, 0.5),
         BackgroundColor3 = Color3.fromRGB(255, 255, 255),
@@ -915,12 +981,12 @@ function Simpz:CreateColorPicker(parent, text, default, callback)
         Parent = Hue
     })
     
-    local HueSelectorCorner = Simpz:Create("UICorner", {
+    local HueSelectorCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 2),
         Parent = HueSelector
     })
     
-    local SaturationSelector = Simpz:Create("Frame", {
+    local SaturationSelector = simpz:Create("Frame", {
         Name = "SaturationSelector",
         AnchorPoint = Vector2.new(0.5, 0.5),
         BackgroundColor3 = Color3.fromRGB(255, 255, 255),
@@ -931,13 +997,13 @@ function Simpz:CreateColorPicker(parent, text, default, callback)
         Parent = Saturation
     })
     
-    local SelectorRing = Simpz:Create("UIStroke", {
+    local SelectorRing = simpz:Create("UIStroke", {
         Color = Color3.fromRGB(255, 255, 255),
         Thickness = 1.6,
         Parent = SaturationSelector
     })
     
-    local SelectorCorner = Simpz:Create("UICorner", {
+    local SelectorCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(1, 0),
         Parent = SaturationSelector
     })
@@ -976,9 +1042,9 @@ function Simpz:CreateColorPicker(parent, text, default, callback)
         ColorPickerGui.Visible = pickerOpen
         
         if pickerOpen then
-            Simpz:Tween(ColorFrame, {Size = UDim2.new(1, 0, 0, 36 + 205)})
+            simpz:Tween(ColorFrame, {Size = UDim2.new(1, 0, 0, 36 + 205)})
         else
-            Simpz:Tween(ColorFrame, {Size = UDim2.new(1, 0, 0, 36)})
+            simpz:Tween(ColorFrame, {Size = UDim2.new(1, 0, 0, 36)})
         end
     end)
     
@@ -1041,7 +1107,7 @@ function Simpz:CreateColorPicker(parent, text, default, callback)
     return ColorPickerElement
 end
 
-function Simpz:CreateSoundController(parent, text, options, callback)
+function simpz:CreateSoundController(parent, text, options, callback)
     options = options or {}
     options.min = options.min or 0
     options.max = options.max or 100
@@ -1051,44 +1117,44 @@ function Simpz:CreateSoundController(parent, text, options, callback)
     
     local value = options.default
     
-    local SoundFrame = Simpz:Create("Frame", {
+    local SoundFrame = simpz:Create("Frame", {
         Name = text .. "Sound",
-        BackgroundColor3 = Simpz.Settings.Theme.Secondary,
+        BackgroundColor3 = simpz.Settings.Theme.Secondary,
         Size = UDim2.new(1, 0, 0, 50),
-        Parent = parent.Frame or parent.Container
+        Parent = parent.Frame
     })
     
-    local SoundCorner = Simpz:Create("UICorner", {
+    local SoundCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(0, 6),
         Parent = SoundFrame
     })
     
-    Simpz:AddShadow(SoundFrame, 0.2)
+    simpz:AddShadow(SoundFrame, 0.2)
     
-    local SoundLabel = Simpz:Create("TextLabel", {
+    local SoundLabel = simpz:Create("TextLabel", {
         Name = "Label",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 10, 0, 0),
         Size = UDim2.new(0.5, 0, 0, 36),
         Font = Enum.Font.Gotham,
         Text = text,
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 13,
         TextXAlignment = Enum.TextXAlignment.Left,
         Parent = SoundFrame
     })
     
-    local VolumeIcon = Simpz:Create("ImageLabel", {
+    local VolumeIcon = simpz:Create("ImageLabel", {
         Name = "VolumeIcon",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 10, 0, 32),
         Size = UDim2.new(0, 18, 0, 18),
         Image = "rbxassetid://7733658133", -- Speaker icon
-        ImageColor3 = Simpz.Settings.Theme.TextColor,
+        ImageColor3 = simpz.Settings.Theme.TextColor,
         Parent = SoundFrame
     })
     
-    local MuteButton = Simpz:Create("TextButton", {
+    local MuteButton = simpz:Create("TextButton", {
         Name = "MuteButton",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 10, 0, 32),
@@ -1097,7 +1163,7 @@ function Simpz:CreateSoundController(parent, text, options, callback)
         Parent = SoundFrame
     })
     
-    local ValueLabel = Simpz:Create("TextLabel", {
+    local ValueLabel = simpz:Create("TextLabel", {
         Name = "Value",
         BackgroundTransparency = 1,
         AnchorPoint = Vector2.new(1, 0),
@@ -1105,43 +1171,43 @@ function Simpz:CreateSoundController(parent, text, options, callback)
         Size = UDim2.new(0, 50, 0, 36),
         Font = Enum.Font.Gotham,
         Text = tostring(value) .. "%",
-        TextColor3 = Simpz.Settings.Theme.TextColor,
+        TextColor3 = simpz.Settings.Theme.TextColor,
         TextSize = 13,
         TextXAlignment = Enum.TextXAlignment.Right,
         Parent = SoundFrame
     })
     
-    local SliderContainer = Simpz:Create("Frame", {
+    local SliderContainer = simpz:Create("Frame", {
         Name = "Container",
-        BackgroundColor3 = Simpz.Settings.Theme.Primary,
+        BackgroundColor3 = simpz.Settings.Theme.Primary,
         Position = UDim2.new(0, 35, 0, 38),
         Size = UDim2.new(1, -80, 0, 6),
         Parent = SoundFrame
     })
     
-    local SliderContainerCorner = Simpz:Create("UICorner", {
+    local SliderContainerCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(1, 0),
         Parent = SliderContainer
     })
     
-    local SliderFill = Simpz:Create("Frame", {
+    local SliderFill = simpz:Create("Frame", {
         Name = "Fill",
-        BackgroundColor3 = Simpz.Settings.Theme.Accent,
+        BackgroundColor3 = simpz.Settings.Theme.Accent,
         Size = UDim2.new(value / options.max, 0, 1, 0),
         Parent = SliderContainer
     })
     
-    local SliderFillCorner = Simpz:Create("UICorner", {
+    local SliderFillCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(1, 0),
         Parent = SliderFill
     })
     
-    Simpz:AddGlow(SliderFill, Simpz.Settings.Theme.Accent, 0.3)
+    simpz:AddGlow(SliderFill, simpz.Settings.Theme.Accent, 0.3)
     
-    local SliderDot = Simpz:Create("Frame", {
+    local SliderDot = simpz:Create("Frame", {
         Name = "Dot",
         AnchorPoint = Vector2.new(0.5, 0.5),
-        BackgroundColor3 = Simpz.Settings.Theme.TextColor,
+        BackgroundColor3 = simpz.Settings.Theme.TextColor,
         BackgroundTransparency = 1,
         Position = UDim2.new(1, 0, 0.5, 0),
         Size = UDim2.new(0, 12, 0, 12),
@@ -1149,7 +1215,7 @@ function Simpz:CreateSoundController(parent, text, options, callback)
         Parent = SliderFill
     })
     
-    local SliderDotCorner = Simpz:Create("UICorner", {
+    local SliderDotCorner = simpz:Create("UICorner", {
         CornerRadius = UDim.new(1, 0),
         Parent = SliderDot
     })
@@ -1177,7 +1243,7 @@ function Simpz:CreateSoundController(parent, text, options, callback)
         value = math.floor(options.min + (options.max - options.min) * percentage)
         
         ValueLabel.Text = tostring(value) .. "%"
-        Simpz:Tween(SliderFill, {Size = UDim2.new(value / options.max, 0, 1, 0)})
+        simpz:Tween(SliderFill, {Size = UDim2.new(value / options.max, 0, 1, 0)})
         
         isMuted = (value == 0)
         UpdateIcon()
@@ -1204,10 +1270,10 @@ function Simpz:CreateSoundController(parent, text, options, callback)
         
         if isMuted then
             ValueLabel.Text = "0%"
-            Simpz:Tween(SliderFill, {Size = UDim2.new(0, 0, 1, 0)})
+            simpz:Tween(SliderFill, {Size = UDim2.new(0, 0, 1, 0)})
         else
             ValueLabel.Text = tostring(value) .. "%"
-            Simpz:Tween(SliderFill, {Size = UDim2.new(value / options.max, 0, 1, 0)})
+            simpz:Tween(SliderFill, {Size = UDim2.new(value / options.max, 0, 1, 0)})
         end
         
         UpdateIcon()
@@ -1225,7 +1291,7 @@ function Simpz:CreateSoundController(parent, text, options, callback)
             isMuted = (value == 0)
             
             ValueLabel.Text = tostring(value) .. "%"
-            Simpz:Tween(SliderFill, {Size = UDim2.new(value / options.max, 0, 1, 0)})
+            simpz:Tween(SliderFill, {Size = UDim2.new(value / options.max, 0, 1, 0)})
             
             UpdateIcon()
             callback(value, isMuted)
@@ -1235,10 +1301,10 @@ function Simpz:CreateSoundController(parent, text, options, callback)
             
             if isMuted then
                 ValueLabel.Text = "0%"
-                Simpz:Tween(SliderFill, {Size = UDim2.new(0, 0, 1, 0)})
+                simpz:Tween(SliderFill, {Size = UDim2.new(0, 0, 1, 0)})
             else
                 ValueLabel.Text = tostring(value) .. "%"
-                Simpz:Tween(SliderFill, {Size = UDim2.new(value / options.max, 0, 1, 0)})
+                simpz:Tween(SliderFill, {Size = UDim2.new(value / options.max, 0, 1, 0)})
             end
             
             UpdateIcon()
@@ -1253,4 +1319,4 @@ function Simpz:CreateSoundController(parent, text, options, callback)
     return SoundElement
 end
 
-return Simpz
+return simpz
